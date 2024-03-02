@@ -180,13 +180,24 @@ int handlePessoas(){
 
 int main(int argc, char* argv[]){
 
+	if (argc < 2) {
+        printf("Usage: %s <mode>\n", argv[0]);
+        return 1;
+    }
+
 	int mode = (int)argv[1][0] - '0';
 
 	switch (mode){
-		case 1 	: mycat();
-		case 2 	: mycp(argv[2],argv[3]); 
-		case 3 	: handlePessoas();
-		default : break;
+		case 1 	: 
+			mycat();
+			break;
+		case 2 	: mycp(argv[2],argv[3]);
+			break; 
+		case 3 	: 
+			handlePessoas();
+			break;
+		default : 
+			break;
 	}
 	
 	return 0;
