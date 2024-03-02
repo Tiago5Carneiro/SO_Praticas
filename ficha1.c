@@ -158,6 +158,7 @@ int handlePessoas(){
 				}
 				i++;
 				adicionaPessoa(nome,&buff[i++]);
+				break;
 
 			case 'o' : 
 				
@@ -169,10 +170,14 @@ int handlePessoas(){
 				}
 				i2++;
 				atualizaPessoa(nome2,&buff[i2++]);
-
-			case 'l' : listaPessoas(&buff[10]);
+				break;
+			case 'l' : 
+				listaPessoas(&buff[10]);
+				break;
 				
-			default : break;
+			default : 
+				
+				break;
 		}
 
 	}
@@ -182,6 +187,9 @@ int main(int argc, char* argv[]){
 
 	if (argc < 2) {
         printf("Usage: %s <mode>\n", argv[0]);
+        printf("\tmode 1 : mycat\n");
+        printf("\tmode 2 : mycp <file> <path>\n");
+        printf("\tmode 3 : handlePessoas\n");
         return 1;
     }
 

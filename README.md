@@ -10,6 +10,8 @@ Compilar os ficheiros atraves do make :
 make
 ```
 
+Para exectuar : 
+
 ```bash
 ./ficha1 {mode}
 ```
