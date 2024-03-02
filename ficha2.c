@@ -187,6 +187,11 @@ void exercicio6(int n){
 
 //optional : Fazer o exercicio anterior mas imprimir a matriz para um ficheiro binario e ir la 
 
+void optional(int n){
+
+
+}
+
 int main(int argc, char* argv[]){
 
     if (argc < 2) {
