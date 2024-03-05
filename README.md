@@ -10,14 +10,14 @@ Compilar os ficheiros atraves do make :
 make
 ```
 
-Para exectuar : 
+Exemplo de como exectuar : 
 
 ```bash
-./ficha1 {mode}
+./ficha1/ficha1 {mode}
 ```
 
-Para obter ajuda nos comandos possiveis : 
+Exemplo de como obter ajuda nos comandos possiveis : 
 
 ```bash
-./ficha1
+./ficha1/ficha1
 ```

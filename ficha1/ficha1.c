@@ -3,6 +3,7 @@
 #include <fcntl.h>  /* O_RDONLY, O_WRONLY, O_CREAT, O_APPEND, O_RDWR , O_TRUNC, O_EXCL, O_* */
 #include <stdlib.h> /* Malloc */
 #include <string.h> /* stcmp */
+#include <stdio.h>  /* printf */
  
 #define BUFF_SIZE 1024
 
@@ -52,6 +53,7 @@ int mycp(char* ficheiro, char* path){
 	}
 	close(file);
 	close(newFile);
+	return 0;
 }
 
 // Escreve a informacao de um objeto pessoa no stdout
@@ -77,7 +79,7 @@ int adicionaPessoa(char* nome, char* idade){
 	strcpy(novaPessoa.nome,nome);
 
 	strcpy(novaPessoa.idade,idade);
-	int fd = open("pessoas.bin", O_WRONLY | O_CREAT | O_APPEND, 0644);
+	int fd = open("/ficha1/pessoas.bin", O_WRONLY | O_CREAT | O_APPEND, 0644);
 
     if (fd == -1) {
     	perror(nome);
@@ -93,7 +95,7 @@ int adicionaPessoa(char* nome, char* idade){
 // Lista as primeiras n pessoas que estao no ficheiro binario
 int listaPessoas(char* number){
 
-	int fd = open("pessoas.bin", O_RDONLY | O_APPEND, 0644);
+	int fd = open("/ficha1/pessoas.bin", O_RDONLY | O_APPEND, 0644);
 
     if (fd == -1) {
     	perror("Lista");
@@ -109,6 +111,7 @@ int listaPessoas(char* number){
 		d = read(fd,&novaPessoa,sizeof(struct Pessoa));
 		printPessoa(novaPessoa);
 	}
+	return 0;
 }
 
 // Atualiza uma pessoa que esteja presente no ficheiro binario
@@ -117,7 +120,7 @@ int atualizaPessoa(char* nome, char* idade){
 	strcpy(novaPessoa.nome,nome);
 	strcpy(novaPessoa.idade,idade);
 
-	int fd = open("pessoas.bin", O_RDWR | O_CREAT | O_APPEND, 0644);
+	int fd = open("/ficha1/pessoas.bin", O_RDWR | O_CREAT | O_APPEND, 0644);
 
     if (fd == -1) {
     	perror(nome);
@@ -181,6 +184,7 @@ int handlePessoas(){
 		}
 
 	}
+	return 0;
 }
 
 int main(int argc, char* argv[]){

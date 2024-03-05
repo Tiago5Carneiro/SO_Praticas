@@ -10,4 +10,4 @@ ficha2: ficha2/ficha2.c
 	$(CC) $(CFLAGS) -o ficha2 ficha2/ficha2.c
 
 clean: 
-	rm -f ficha1/ficha1 ficha2/ficha2
+	rm -f ficha1/ficha1 ficha2/ficha2 *.bin
