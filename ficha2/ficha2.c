@@ -5,12 +5,10 @@
 #include <sys/wait.h> 	/* wait */
 #include <stdlib.h> 	/* rand */
 
-
 #define LINHAS 25
 #define COLUNAS 40
 #define TRACOS COLUNAS*4+1
 
-// 
 void printMatrix(int matriz[LINHAS][COLUNAS]){
 	int i;
 	int j;
@@ -185,7 +183,7 @@ void exercicio6(int n){
 //optional : Fazer o exercicio anterior mas imprimir a matriz para um ficheiro binario e ir la 
 void optional(int n){
 
-	int fd = open("ficha2/matriz.bin", O_RDWR | O_CREAT | O_APPEND, 0644);
+	int fd = open("ficha2/matriz.bin", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	int fd1 = fd;
 	int matriz[LINHAS][COLUNAS];
 	int i;
@@ -200,10 +198,13 @@ void optional(int n){
 		if(fork()==0){
 			int line[COLUNAS]={0};
 			j = 0;
-			lseek(fd,sizeof(int)*COLUNAS*(i+1),SEEK_SET);
+			if (i!=0)lseek(fd,sizeof(int)*COLUNAS*(i),SEEK_SET);
 			read(fd,line,sizeof(int)*COLUNAS);
 			while (j<COLUNAS){
-				if (line[j]==n)_exit(i+1);
+				if (line[j]==n){
+					printf("Linha : %d Coluna %d\n",i+1,j+1);
+					_exit(i+1);
+				}
 				else j++;
 			}
 			_exit(0);
@@ -222,14 +223,14 @@ void optional(int n){
 		i--;
 		if ((status = WEXITSTATUS(status))!=0){
 			empty++;
-			linhas[i]=i+1;
+			linhas[status]=(status != 0);
 		}
 	} 
 	if (empty==0) printf("Number was not found in any line\n");
 	else {
 		i = 0;
 		while (i<LINHAS){
-			if (linhas[i]!=0) printf("Number found in line : %d\n",linhas[i]);
+			if (linhas[i]!=0) printf("Number found in line : %d\n",i+1);
 			i++;
 		}
 	}
@@ -289,4 +290,3 @@ int main(int argc, char* argv[]){
 
 	return 0;
 }
-
