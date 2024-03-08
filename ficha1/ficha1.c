@@ -128,7 +128,7 @@ int atualizaPessoa(char* nome, char* idade){
     }
 
     while(read(fd,&novaPessoa,sizeof(struct Pessoa))){
-    	if (strncmp(novaPessoa.nome,nome,sizeof(nome))){
+    	//novaPessoa.nome=strdup(nome);
 
     		strcpy(novaPessoa.idade,idade);
     		
@@ -137,7 +137,7 @@ int atualizaPessoa(char* nome, char* idade){
 
     		close(fd);
     		return 0;
-    	}
+    	
     }
 
 

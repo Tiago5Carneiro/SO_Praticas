@@ -1,0 +1,7 @@
+# ignore ./a.out
+a.out
+test
+test1
+*.bin
+ficha1/ficha1
+ficha2/ficha2

@@ -5,24 +5,28 @@
 #include <sys/wait.h> 	/* wait */
 #include <stdlib.h> 	/* rand */
 
-#define LINHAS 25
+#define LINHAS 15
 #define COLUNAS 40
 #define TRACOS COLUNAS*4+1
 
-void printMatrix(int matriz[LINHAS][COLUNAS]){
+void printMatrix(int matriz[LINHAS][COLUNAS],int n){
 	int i;
 	int j;
-	for (int z = 0;z<TRACOS;z++)printf("-");
+	for (int z = 0;z<TRACOS;z++)printf("\033[1;37m-\033[1;0m");
 	printf("\n");
 	for (i = 0;i<LINHAS;i++){
 		for (j = 0;j<COLUNAS;j++){
 
 			matriz[i][j] = rand()%100;
-			if (matriz[i][j]>9)printf("| %d",matriz[i][j]);
-			else printf("| %d ",matriz[i][j]);
+			if (matriz[i][j]>9) {
+				if (matriz[i][j] == n) printf("\033[1;37m|\033[1;0m \033[1;32m%d\033[1;0m",matriz[i][j]);
+				else printf("\033[1;37m|\033[1;0m \033[1;31m%d\033[1;0m",matriz[i][j]);
+			}
+			else if (matriz[i][j] == n) printf("\033[1;37m|\033[1;0m \033[1;32m%d\033[1;0m ",matriz[i][j]);
+			else printf("\033[1;37m|\033[1;0m \033[1;31m%d\033[1;0m ",matriz[i][j]);
 		}
 		printf("|\n");
-		for (int z = 0;z<TRACOS;z++)printf("-");
+		for (int z = 0;z<TRACOS;z++)printf("\033[1;37m-\033[1;0m");
 		printf("\n");
 	}
 }
@@ -103,7 +107,7 @@ void exercicio4(){
 void exercicio5(int n){
 
 	int matriz[LINHAS][COLUNAS];
-	printMatrix(matriz);
+	printMatrix(matriz,n);
 
 	int i;
 	int j;
@@ -139,7 +143,7 @@ void exercicio5(int n){
 void exercicio6(int n){
 
 	int matriz[LINHAS][COLUNAS];
-	printMatrix(matriz);
+	printMatrix(matriz,n);
 	int i;
 	int j;
 
@@ -167,14 +171,14 @@ void exercicio6(int n){
 		i--;
 		if ((status = WEXITSTATUS(status))!=0){
 			empty++;
-			linhas[LINHAS-1-i]=LINHAS-i;
+			linhas[status-1]=1;
 		}
 	} 
 	if (empty==0) printf("Number was not found in any line\n");
 	else {
 		i = 0;
 		while (i<LINHAS){
-			if (linhas[i]!=0) printf("Number found in line : %d\n",linhas[i]);
+			if (linhas[i]!=0) printf("Number found in line : %d\n",i+1);
 			i++;
 		}
 	}
@@ -189,7 +193,7 @@ void optional(int n){
 	int i;
 	int j;
 	
-	printMatrix(matriz);
+	printMatrix(matriz,n);
 	
 	write(fd1,matriz,sizeof(int)*LINHAS*COLUNAS);
 
@@ -198,13 +202,10 @@ void optional(int n){
 		if(fork()==0){
 			int line[COLUNAS]={0};
 			j = 0;
-			if (i!=0)lseek(fd,sizeof(int)*COLUNAS*(i),SEEK_SET);
+			lseek(fd,sizeof(int)*COLUNAS*(i),SEEK_SET);
 			read(fd,line,sizeof(int)*COLUNAS);
 			while (j<COLUNAS){
-				if (line[j]==n){
-					printf("Linha : %d Coluna %d\n",i+1,j+1);
-					_exit(i+1);
-				}
+				if (line[j]==n)_exit(i+1);
 				else j++;
 			}
 			_exit(0);
@@ -223,7 +224,7 @@ void optional(int n){
 		i--;
 		if ((status = WEXITSTATUS(status))!=0){
 			empty++;
-			linhas[status]=(status != 0);
+			linhas[status-1]=(status != 0);
 		}
 	} 
 	if (empty==0) printf("Number was not found in any line\n");
