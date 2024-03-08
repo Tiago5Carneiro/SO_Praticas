@@ -79,7 +79,7 @@ int adicionaPessoa(char* nome, char* idade){
 	strcpy(novaPessoa.nome,nome);
 
 	strcpy(novaPessoa.idade,idade);
-	int fd = open("/ficha1/pessoas.bin", O_WRONLY | O_CREAT | O_APPEND, 0644);
+	int fd = open("/tmp/pessoas.bin", O_WRONLY | O_CREAT | O_APPEND, 0644);
 
     if (fd == -1) {
     	perror(nome);
@@ -95,7 +95,7 @@ int adicionaPessoa(char* nome, char* idade){
 // Lista as primeiras n pessoas que estao no ficheiro binario
 int listaPessoas(char* number){
 
-	int fd = open("/ficha1/pessoas.bin", O_RDONLY | O_APPEND, 0644);
+	int fd = open("/tmp/pessoas.bin", O_RDONLY | O_APPEND, 0644);
 
     if (fd == -1) {
     	perror("Lista");
@@ -120,7 +120,7 @@ int atualizaPessoa(char* nome, char* idade){
 	strcpy(novaPessoa.nome,nome);
 	strcpy(novaPessoa.idade,idade);
 
-	int fd = open("/ficha1/pessoas.bin", O_RDWR | O_CREAT | O_APPEND, 0644);
+	int fd = open("/tmp/pessoas.bin", O_RDWR | O_CREAT | O_APPEND, 0644);
 
     if (fd == -1) {
     	perror(nome);

@@ -187,7 +187,7 @@ void exercicio6(int n){
 //optional : Fazer o exercicio anterior mas imprimir a matriz para um ficheiro binario e ir la 
 void optional(int n){
 
-	int fd = open("ficha2/matriz.bin", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	int fd = open("tmp/matriz.bin", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	int fd1 = fd;
 	int matriz[LINHAS][COLUNAS];
 	int i;
@@ -280,10 +280,10 @@ int main(int argc, char* argv[]){
             exercicio6(n2);
             break;
         case 7:
-        	int n3 = rand() % 100;
-        	printf("Random number to search in the matrix: %d\n", n3);
-        	optional(n3);
-        	break;
+            int n3 = rand() % 100;
+            printf("Random number to search in the matrix: %d\n", n3);
+            optional(n3);
+            break;
         default:
             printf("Invalid mode\n");
             return 1;
