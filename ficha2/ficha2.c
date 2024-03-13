@@ -131,9 +131,10 @@ void exercicio5(int n){
 	}	
 	int status;
 	int empty = 0;
-	while(i>0){
+	while(i<10){
 		wait(&status);
-		i--;
+		i++;
+		printf("Number found!!! Line : %d Column : %d\n",i+1);
 		if ((status = WEXITSTATUS(status))==0) empty++;
 	} 
 	if (empty==0) printf("Number not found\n");
@@ -182,6 +183,41 @@ void exercicio6(int n){
 			i++;
 		}
 	}
+}
+
+// outra versao ex 6
+
+int exercicio5_2(int n){
+		int matriz[LINHAS][COLUNAS];
+	printMatrix(matriz,n);
+	int i;
+	int j;
+
+	i = 0;
+	while(i<LINHAS){
+		if(fork()==0){
+			j = 0;
+			while (j<COLUNAS){
+				if (matriz[i][j]==n){
+					_exit(1);
+				}
+				else j++;
+			}
+			_exit(0);
+		}
+		else{
+			i++;
+		}
+	}	
+
+	int status;
+
+	for(i = 0;i<LINHAS;i++){
+		wait(&status);
+		if(WEXITSTATUS(status)) printf("Linha : %d\n",i);
+	}
+
+	return 0;
 }
 
 //optional : Fazer o exercicio anterior mas imprimir a matriz para um ficheiro binario e ir la 
@@ -283,6 +319,11 @@ int main(int argc, char* argv[]){
             int n3 = rand() % 100;
             printf("Random number to search in the matrix: %d\n", n3);
             optional(n3);
+            break;
+        case 8:
+            int n4 = rand() % 100;
+            printf("Random number to search in the matrix: %d\n", n4);
+            exercicio5_2(n4);
             break;
         default:
             printf("Invalid mode\n");
